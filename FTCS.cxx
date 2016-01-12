@@ -84,8 +84,9 @@ void writeToFile(const double* const u, const string s, const double dx,
    out.close();
 }
 void step(double* u0,double* u1, const int N, const double dt,const double dx, const double V){
-  u1[0]=-V*dt/dx*(u0[0]-u0[N-1])+u0[0];
-  for(int i=1; i<N;i++){
-    u1[i]=-V*dt/dx*(u0[i]-u0[i-1])+u0[i];
+  u1[0]=-V*dt/(2*dx)*(u0[1]-u0[N-1])+u0[0];
+  for(int i=1; i<N-1;i++){
+    u1[i]=-V*dt/(2*dx)*(u0[i+1]-u0[i-1])+u0[i];
   }
+  u1[N-1]=-V*dt/(2*dx)*(u0[0]-u0[N-2])+u0[N-1];
 }
